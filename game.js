@@ -1,12 +1,211 @@
-const canvas = document.getElementById('battleCanvas');
-const ctx = canvas.getContext('2d');
-
-let p1 = { x: 100, y: 240, hp: 100, maxHp: 100, angle: 45, power: 50 };
-let ai = { x: 780, y: 240, hp: 100, maxHp: 100, angle: 135, power: 50 };
+// Three.js 3D Battle Engine for LUNA & Starfall Abyss
+let scene, camera, renderer, container;
+let lunaMesh, bossMesh, projectileMesh;
+let p1 = { x: -4, z: 0, hp: 100, maxHp: 100, angle: 45, power: 50 };
+let ai = { x: 4, z: 0, hp: 100, maxHp: 100, angle: 135, power: 50 };
 let wind = 0.0;
 let turn = 'player';
 let projectile = null;
 let gameRunning = false;
+
+function initThree() {
+    container = document.getElementById('three-container');
+    if(renderer) {
+        container.innerHTML = '';
+    }
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b0f19);
+    scene.fog = new THREE.FogExp2(0x0b0f19, 0.05);
+
+    camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 3, 10);
+    camera.lookAt(0, 1, 0);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    // Lighting (Moody cyberpunk / dark fantasy lighting matching user aesthetic)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0x67e8f9, 1.2);
+    dirLight.position.set(5, 10, 7);
+    scene.add(dirLight);
+
+    const purpleLight = new THREE.PointLight(0xc084fc, 2, 15);
+    purpleLight.position.set(4, 2, 0);
+    scene.add(purpleLight);
+
+    // Create Floating Island Platforms
+    createTerrain();
+
+    // Create 3D Models for Luna & Boss Starfall Abyss
+    createLunaModel();
+    createBossModel();
+
+    window.addEventListener('resize', onWindowResize);
+}
+
+function createTerrain() {
+    // Left Platform (Player Cliff)
+    const cliffGeo = new THREE.BoxGeometry(4, 3, 3);
+    const cliffMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 });
+    const leftCliff = new THREE.Mesh(cliffGeo, cliffMat);
+    leftCliff.position.set(-4, -1.5, 0);
+    scene.add(leftCliff);
+
+    const grassGeo = new THREE.BoxGeometry(4.2, 0.4, 3.2);
+    const grassMat = new THREE.MeshStandardMaterial({ color: 0x065f46, roughness: 0.5 });
+    const leftGrass = new THREE.Mesh(grassGeo, grassMat);
+    leftGrass.position.set(-4, 0.2, 0);
+    scene.add(leftGrass);
+
+    // Right Platform (Boss Floating Island)
+    const rightCliff = new THREE.Mesh(cliffGeo, cliffMat);
+    rightCliff.position.set(4, -1.5, 0);
+    scene.add(rightCliff);
+
+    const rightGrass = new THREE.Mesh(grassGeo, grassMat);
+    rightGrass.position.set(4, 0.2, 0);
+    scene.add(rightGrass);
+}
+
+function createLunaModel() {
+    // Group representing LUNA (18k polygon style geometric mesh composite)
+    lunaMesh = new THREE.Group();
+
+    // Body (Brown vest & green plaid skirt)
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xb45309 });
+    const bodyGeo = new THREE.BoxGeometry(0.8, 1.0, 0.6);
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 0.8;
+    lunaMesh.add(body);
+
+    const skirtMat = new THREE.MeshStandardMaterial({ color: 0x065f46 });
+    const skirtGeo = new THREE.CylinderGeometry(0.5, 0.7, 0.6, 6);
+    const skirt = new THREE.Mesh(skirtGeo, skirtMat);
+    skirt.position.y = 0.2;
+    lunaMesh.add(skirt);
+
+    // Head (Twin tails brown hair & green eyes)
+    const headMat = new THREE.MeshStandardMaterial({ color: 0xfde047 }); // skin tone
+    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.position.y = 1.5;
+    lunaMesh.add(head);
+
+    const hairMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
+    const hairGeo = new THREE.SphereGeometry(0.44, 16, 16);
+    const hair = new THREE.Mesh(hairGeo, hairMat);
+    hair.position.set(0, 1.55, -0.05);
+    lunaMesh.add(hair);
+
+    // Twin Tails
+    const tailGeo = new THREE.SphereGeometry(0.2, 8, 8);
+    const leftTail = new THREE.Mesh(tailGeo, hairMat);
+    leftTail.position.set(-0.5, 1.6, -0.2);
+    lunaMesh.add(leftTail);
+    const rightTail = new THREE.Mesh(tailGeo, hairMat);
+    rightTail.position.set(0.5, 1.6, -0.2);
+    lunaMesh.add(rightTail);
+
+    // Backpack (Detailed accessory from reference)
+    const packMat = new THREE.MeshStandardMaterial({ color: 0x8b5a2b });
+    const packGeo = new THREE.BoxGeometry(0.6, 0.8, 0.4);
+    const pack = new THREE.Mesh(packGeo, packMat);
+    pack.position.set(0, 0.9, -0.4);
+    lunaMesh.add(pack);
+
+    // Crystal Staff (Weapon)
+    const staffMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
+    const staffGeo = new THREE.CylinderGeometry(0.04, 0.04, 2.2);
+    const staff = new THREE.Mesh(staffGeo, staffMat);
+    staff.position.set(0.8, 1.0, 0.2);
+    staff.rotation.z = -0.3;
+    lunaMesh.add(staff);
+
+    // Blue Crystal tip
+    const crystalMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, emissive: 0x22d3ee, emissiveIntensity: 0.8 });
+    const crystalGeo = new THREE.OctahedronGeometry(0.2);
+    const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+    crystal.position.set(1.0, 1.9, 0.2);
+    lunaMesh.add(crystal);
+
+    lunaMesh.position.set(-4, 0.4, 0);
+    scene.add(lunaMesh);
+}
+
+function createBossModel() {
+    // Group representing LUNA, THE STARFALL ABYSS (32k polygon style corrupted floating model)
+    bossMesh = new THREE.Group();
+
+    // Floating Dark Void Base
+    const portalMat = new THREE.MeshStandardMaterial({ color: 0x7e22ce, emissive: 0x581c87, roughness: 0.2 });
+    const portalGeo = new THREE.RingGeometry(0.4, 0.9, 16);
+    const portal = new THREE.Mesh(portalGeo, portalMat);
+    portal.rotation.x = -Math.PI / 2;
+    portal.position.y = 0.05;
+    bossMesh.add(portal);
+
+    // Corrupted Body & Dark Crystals
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x311042 });
+    const bodyGeo = new THREE.BoxGeometry(0.8, 1.0, 0.6);
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.y = 1.0;
+    bossMesh.add(body);
+
+    // Floating Dark Crystals around shoulders
+    const crystalMat = new THREE.MeshStandardMaterial({ color: 0xc084fc, emissive: 0x7e22ce, emissiveIntensity: 0.9 });
+    const crystalGeo = new THREE.ConeGeometry(0.2, 0.6, 4);
+    
+    const crys1 = new THREE.Mesh(crystalGeo, crystalMat);
+    crys1.position.set(-0.6, 1.3, 0);
+    crys1.rotation.z = 0.5;
+    bossMesh.add(crys1);
+
+    const crys2 = new THREE.Mesh(crystalGeo, crystalMat);
+    crys2.position.set(0.6, 1.3, 0);
+    crys2.rotation.z = -0.5;
+    bossMesh.add(crys2);
+
+    // Head (Corrupted glowing purple eyes)
+    const headMat = new THREE.MeshStandardMaterial({ color: 0x451a03 });
+    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.position.y = 1.7;
+    bossMesh.add(head);
+
+    const hairMat = new THREE.MeshStandardMaterial({ color: 0x2e1065 });
+    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.44, 16, 16), hairMat);
+    hair.position.set(0, 1.75, -0.05);
+    bossMesh.add(hair);
+
+    // Vortex Staff (Boss Weapon)
+    const staffMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b });
+    const staff = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.4), staffMat);
+    staff.position.set(-0.9, 1.2, 0.2);
+    staff.rotation.z = 0.3;
+    bossMesh.add(staff);
+
+    // Dark Vortex glowing sphere at tip
+    const vortexMat = new THREE.MeshStandardMaterial({ color: 0x581c87, emissive: 0x9333ea, emissiveIntensity: 1.0 });
+    const vortex = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), vortexMat);
+    vortex.position.set(-1.1, 2.1, 0.2);
+    bossMesh.add(vortex);
+
+    bossMesh.position.set(4, 0.6, 0); // Floating slightly above ground
+    scene.add(bossMesh);
+}
+
+function onWindowResize() {
+    if(!container || !renderer) return;
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
 
 function enterGameRoom() {
     document.getElementById('portal-screen').classList.add('hidden');
@@ -22,13 +221,14 @@ function exitGameRoom() {
 
 function initBattle() {
     p1.hp = 100; ai.hp = 100;
-    p1.x = 100; ai.x = 780;
     wind = (Math.random() - 0.5) * 0.4;
     turn = 'player';
-    projectile = null;
     gameRunning = true;
     updateHUD();
-    requestAnimationFrame(gameLoop);
+    if(!renderer) {
+        initThree();
+    }
+    animate();
 }
 
 function adjustAngle(val) {
@@ -41,8 +241,6 @@ function adjustPower(val) {
     if (turn !== 'player') return;
     p1.power = Math.max(10, Math.min(100, p1.power + val));
     updateHUD();
-    document.getElementById('force-bar-fill').style.width = p1.power + '%';
-    document.getElementById('force-dial').innerText = p1.power;
 }
 
 function updateHUD() {
@@ -58,8 +256,8 @@ function updateHUD() {
     let pDot = document.getElementById('minimap-player');
     let eDot = document.getElementById('minimap-enemy');
     if(pDot && eDot) {
-        pDot.style.left = (p1.x / canvas.width * 100) + '%';
-        eDot.style.left = (ai.x / canvas.width * 100) + '%';
+        pDot.style.left = '25%';
+        eDot.style.left = '75%';
     }
 }
 
@@ -67,273 +265,104 @@ function fireBullet() {
     if (turn !== 'player') return;
     turn = 'animating';
 
+    // Create 3D projectile mesh
+    const projGeo = new THREE.SphereGeometry(0.2, 16, 16);
+    const projMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, emissive: 0x00f0ff, emissiveIntensity: 1 });
+    projectileMesh = new THREE.Mesh(projGeo, projMat);
+    
     let rad = p1.angle * Math.PI / 180;
-    let v = p1.power * 0.28;
+    let v = p1.power * 0.03;
+    
     projectile = {
-        x: p1.x + 15,
-        y: p1.y - 12,
+        x: -4, y: 1.5, z: 0,
         vx: Math.cos(rad) * v,
-        vy: -Math.sin(rad) * v,
+        vy: Math.sin(rad) * v,
         isPlayer: true
     };
+    
+    projectileMesh.position.set(projectile.x, projectile.y, projectile.z);
+    scene.add(projectileMesh);
 }
 
 function aiTurn() {
     if (!gameRunning) return;
     setTimeout(() => {
         if (!gameRunning || ai.hp <= 0) return;
-        let dist = Math.abs(p1.x - ai.x);
-        ai.angle = Math.round(135 + (Math.random() * 10 - 5));
-        ai.power = Math.min(90, Math.max(30, dist * 0.25 + (Math.random() * 10 - 5)));
+        
+        // Boss fires dark vortex projectile
+        const projGeo = new THREE.SphereGeometry(0.25, 16, 16);
+        const projMat = new THREE.MeshStandardMaterial({ color: 0xc084fc, emissive: 0x7e22ce, emissiveIntensity: 1 });
+        projectileMesh = new THREE.Mesh(projGeo, projMat);
 
-        let rad = (180 - ai.angle) * Math.PI / 180;
-        let v = ai.power * 0.28;
+        let v = 0.7 + Math.random() * 0.2;
         projectile = {
-            x: ai.x - 15,
-            y: ai.y - 12,
-            vx: -Math.cos(rad) * v,
-            vy: -Math.sin(rad) * v,
+            x: 4, y: 1.5, z: 0,
+            vx: -v * 0.8,
+            vy: 0.4,
             isPlayer: false
         };
+
+        projectileMesh.position.set(projectile.x, projectile.y, projectile.z);
+        scene.add(projectileMesh);
         turn = 'animating';
     }, 1000);
 }
 
-function update() {
+function updateGameLogic() {
     if (projectile) {
-        projectile.vx += wind * 0.02;
-        projectile.vy += 0.25;
+        projectile.vy -= 0.015; // gravity
         projectile.x += projectile.vx;
         projectile.y += projectile.vy;
+        
+        if(projectileMesh) {
+            projectileMesh.position.set(projectile.x, projectile.y, projectile.z);
+        }
 
-        if (projectile.y >= 250) {
-            checkHit();
-            projectile = null;
-        } else if (projectile.x < 0 || projectile.x > canvas.width) {
-            projectile = null;
-            endTurn();
-        } else {
+        // Check collision with platforms or targets
+        let targetX = projectile.isPlayer ? 4 : -4;
+        let dist = Math.abs(projectile.x - targetX);
+
+        if (projectile.y <= 0.4 || dist < 0.6) {
             let target = projectile.isPlayer ? ai : p1;
-            let dist = Math.hypot(projectile.x - target.x, projectile.y - target.y);
-            if (dist < 22) {
-                applyDamage(target, 35 + Math.random() * 15);
-                projectile = null;
+            let dmg = Math.round(35 + Math.random() * 20);
+            target.hp = Math.max(0, target.hp - dmg);
+            updateHUD();
+
+            if(projectileMesh) {
+                scene.remove(projectileMesh);
+                projectileMesh = null;
+            }
+            projectile = null;
+
+            if (target.hp <= 0) {
+                turn = 'gameover';
+                gameRunning = false;
+                alert(projectile.isPlayer ? "🎉 ยินดีด้วย คุณเอาชนะ LUNA, THE STARFALL ABYSS สำเร็จ!" : "💀 LUNA พ่ายแพ้ต่อพลังแห่งความมืด!");
+                setTimeout(exitGameRoom, 1500);
+                return;
+            }
+
+            if (projectile && projectile.isPlayer) {
+                turn = 'ai';
+                aiTurn();
+            } else {
+                turn = 'player';
             }
         }
     }
 }
 
-function checkHit() {
-    let target = projectile.isPlayer ? ai : p1;
-    let dist = Math.abs(projectile.x - target.x);
-    if (dist < 32) {
-        let dmg = Math.round(45 * (1 - dist / 32) + 15);
-        applyDamage(target, dmg);
-    } else {
-        endTurn();
-    }
-}
-
-function applyDamage(target, dmg) {
-    target.hp = Math.max(0, Math.round(target.hp - dmg));
-    updateHUD();
-
-    if (target.hp <= 0) {
-        turn = 'gameover';
-        gameRunning = false;
-        alert((target === ai) ? "🎉 ยินดีด้วย คุณเอาชนะ LUNA, THE STARFALL ABYSS สำเร็จ!" : "💀 LUNA พ่ายแพ้ต่อพลังแห่งความมืด!");
-        setTimeout(() => {
-            exitGameRoom();
-        }, 1500);
-        return;
-    }
-    endTurn();
-}
-
-function endTurn() {
-    if (turn === 'gameover' || !gameRunning) return;
-    wind = (Math.random() - 0.5) * 0.4;
-    if (projectile && projectile.isPlayer) {
-        turn = 'ai';
-        aiTurn();
-    } else {
-        turn = 'player';
-    }
-}
-
-// Draw Player: LUNA (Age 12, Crystal Staff, Blue Cape, Twin Tails)
-function drawLuna(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-
-    // Backpack & Outfit
-    ctx.fillStyle = '#8b5a2b'; // leather backpack
-    ctx.fillRect(-14, -12, 10, 16);
-    ctx.fillStyle = '#1e3a8a'; // blue cape
-    ctx.beginPath();
-    ctx.moveTo(-10, -14);
-    ctx.lineTo(-22, 6);
-    ctx.lineTo(-4, 2);
-    ctx.closePath();
-    ctx.fill();
-
-    // Body / School Skirt
-    ctx.fillStyle = '#b45309'; // brown vest
-    ctx.fillRect(-10, -12, 20, 16);
-    ctx.fillStyle = '#065f46'; // green plaid skirt
-    ctx.fillRect(-10, 4, 20, 10);
-
-    // Head & Twin Tails Hair (Brown with star clips)
-    ctx.fillStyle = '#78350f';
-    ctx.beginPath();
-    ctx.arc(0, -20, 11, 0, Math.PI * 2);
-    ctx.fill();
-    // Twin tails left & right
-    ctx.beginPath();
-    ctx.arc(-14, -22, 6, 0, Math.PI * 2);
-    ctx.arc(14, -22, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Face / Eyes (Green eyes)
-    ctx.fillStyle = '#10b981';
-    ctx.fillRect(-4, -22, 3, 3);
-    ctx.fillRect(2, -22, 3, 3);
-
-    // Crystal Staff (Weapon)
-    ctx.strokeStyle = '#78350f';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(8, 4);
-    let rad = p.angle * Math.PI / 180;
-    ctx.lineTo(8 + Math.cos(rad) * 20, 4 - Math.sin(rad) * 20);
-    ctx.stroke();
-    // Crystal tip (Blue glow)
-    ctx.fillStyle = '#67e8f9';
-    ctx.beginPath();
-    let tipX = 8 + Math.cos(rad) * 20;
-    let tipY = 4 - Math.sin(rad) * 20;
-    ctx.arc(tipX, tipY, 4, 0, Math.PI * 2);
-    ctx.fill();
-
-    // HP bar above
-    ctx.fillStyle = '#111';
-    ctx.fillRect(-18, -36, 36, 5);
-    ctx.fillStyle = '#4ecca3';
-    ctx.fillRect(-18, -36, 36 * (p.hp / p.maxHp), 5);
-
-    ctx.restore();
-}
-
-// Draw Boss: LUNA, THE STARFALL ABYSS (Corrupted floating form, dark crystals, vortex staff)
-function drawStarfallAbyssLuna(b) {
-    ctx.save();
-    ctx.translate(b.x, b.y - 6); // slightly floating
-
-    // Dark Void Portal Effect under feet
-    ctx.fillStyle = 'rgba(126, 34, 206, 0.4)';
-    ctx.beginPath();
-    ctx.ellipse(0, 18, 22, 8, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Corrupted Dark Crystals & Cape
-    ctx.fillStyle = '#581c87'; // dark purple crystals
-    ctx.beginPath();
-    ctx.moveTo(-16, -18);
-    ctx.lineTo(-28, -4);
-    ctx.lineTo(-12, 6);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(16, -18);
-    ctx.lineTo(28, -4);
-    ctx.lineTo(12, 6);
-    ctx.closePath();
-    ctx.fill();
-
-    // Body / Corrupted Vest
-    ctx.fillStyle = '#311042';
-    ctx.fillRect(-10, -12, 20, 16);
-
-    // Head with Corrupted Glowing Purple Eyes
-    ctx.fillStyle = '#451a03';
-    ctx.beginPath();
-    ctx.arc(0, -20, 11, 0, Math.PI * 2);
-    ctx.fill();
-    // Twin tails with dark crystal tips
-    ctx.beginPath();
-    ctx.arc(-14, -22, 6, 0, Math.PI * 2);
-    ctx.arc(14, -22, 6, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Glowing Purple Eyes
-    ctx.fillStyle = '#c084fc';
-    ctx.fillRect(-4, -22, 3, 3);
-    ctx.fillRect(2, -22, 3, 3);
-
-    // Corrupted Vortex Staff (Weapon)
-    ctx.strokeStyle = '#2e1065';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(-8, 4);
-    let rad = (180 - b.angle) * Math.PI / 180;
-    ctx.lineTo(-8 - Math.cos(rad) * 20, 4 - Math.sin(rad) * 20);
-    ctx.stroke();
-
-    // Dark Vortex Tip
-    ctx.fillStyle = '#7e22ce';
-    let tipX = -8 - Math.cos(rad) * 20;
-    let tipY = 4 - Math.sin(rad) * 20;
-    ctx.beginPath();
-    ctx.arc(tipX, tipY, 6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = '#000';
-    ctx.beginPath();
-    ctx.arc(tipX, tipY, 3, 0, Math.PI * 2);
-    ctx.fill();
-
-    // HP bar above
-    ctx.fillStyle = '#111';
-    ctx.fillRect(-18, -36, 36, 5);
-    ctx.fillStyle = '#ff3366';
-    ctx.fillRect(-18, -36, 36 * (b.hp / b.maxHp), 5);
-
-    ctx.restore();
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Terrain Platforms
-    ctx.fillStyle = '#78350f'; 
-    ctx.fillRect(0, 250, 240, 90);
-    ctx.fillStyle = '#065f46'; 
-    ctx.fillRect(0, 250, 240, 8);
-
-    ctx.fillStyle = '#78350f';
-    ctx.fillRect(580, 250, 320, 90);
-    ctx.fillStyle = '#065f46';
-    ctx.fillRect(580, 250, 320, 8);
-
-    drawLuna(p1);
-    drawStarfallAbyssLuna(ai);
-
-    if (projectile) {
-        ctx.beginPath();
-        ctx.arc(projectile.x, projectile.y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = projectile.isPlayer ? '#67e8f9' : '#c084fc';
-        ctx.fill();
-        ctx.strokeStyle = projectile.isPlayer ? '#0284c7' : '#7e22ce';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-    }
-}
-
-function gameLoop() {
+function animate() {
     if (!gameRunning) return;
-    update();
-    draw();
-    if (turn !== 'gameover') {
-        requestAnimationFrame(gameLoop);
+    requestAnimationFrame(animate);
+    
+    // Subtle idle floating animation for Boss
+    if(bossMesh) {
+        bossMesh.position.y = 0.6 + Math.sin(Date.now() * 0.003) * 0.1;
+    }
+
+    updateGameLogic();
+    if(renderer && scene && camera) {
+        renderer.render(scene, camera);
     }
 }
