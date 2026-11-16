@@ -14,29 +14,32 @@ function initThree() {
         container.innerHTML = '';
     }
 
+    let width = container.clientWidth || 800;
+    let height = container.clientHeight || 280;
+
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0b0f19);
     scene.fog = new THREE.FogExp2(0x0b0f19, 0.05);
 
-    camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
     camera.position.set(0, 3, 10);
     camera.lookAt(0, 1, 0);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(width, height);
     renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
-    // Lighting (Moody cyberpunk / dark fantasy lighting matching user aesthetic)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // Brightened lighting so it's never pitch black
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0x67e8f9, 1.2);
+    const dirLight = new THREE.DirectionalLight(0x67e8f9, 1.5);
     dirLight.position.set(5, 10, 7);
     scene.add(dirLight);
 
-    const purpleLight = new THREE.PointLight(0xc084fc, 2, 15);
-    purpleLight.position.set(4, 2, 0);
+    const purpleLight = new THREE.PointLight(0xc084fc, 3, 20);
+    purpleLight.position.set(4, 3, 2);
     scene.add(purpleLight);
 
     // Create Floating Island Platforms
@@ -50,7 +53,6 @@ function initThree() {
 }
 
 function createTerrain() {
-    // Left Platform (Player Cliff)
     const cliffGeo = new THREE.BoxGeometry(4, 3, 3);
     const cliffMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 });
     const leftCliff = new THREE.Mesh(cliffGeo, cliffMat);
@@ -63,7 +65,6 @@ function createTerrain() {
     leftGrass.position.set(-4, 0.2, 0);
     scene.add(leftGrass);
 
-    // Right Platform (Boss Floating Island)
     const rightCliff = new THREE.Mesh(cliffGeo, cliffMat);
     rightCliff.position.set(4, -1.5, 0);
     scene.add(rightCliff);
@@ -74,63 +75,48 @@ function createTerrain() {
 }
 
 function createLunaModel() {
-    // Group representing LUNA (18k polygon style geometric mesh composite)
     lunaMesh = new THREE.Group();
 
-    // Body (Brown vest & green plaid skirt)
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0xb45309 });
-    const bodyGeo = new THREE.BoxGeometry(0.8, 1.0, 0.6);
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.6), bodyMat);
     body.position.y = 0.8;
     lunaMesh.add(body);
 
     const skirtMat = new THREE.MeshStandardMaterial({ color: 0x065f46 });
-    const skirtGeo = new THREE.CylinderGeometry(0.5, 0.7, 0.6, 6);
-    const skirt = new THREE.Mesh(skirtGeo, skirtMat);
+    const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 0.6, 6), skirtMat);
     skirt.position.y = 0.2;
     lunaMesh.add(skirt);
 
-    // Head (Twin tails brown hair & green eyes)
-    const headMat = new THREE.MeshStandardMaterial({ color: 0xfde047 }); // skin tone
-    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
-    const head = new THREE.Mesh(headGeo, headMat);
+    const headMat = new THREE.MeshStandardMaterial({ color: 0xfde047 });
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), headMat);
     head.position.y = 1.5;
     lunaMesh.add(head);
 
     const hairMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
-    const hairGeo = new THREE.SphereGeometry(0.44, 16, 16);
-    const hair = new THREE.Mesh(hairGeo, hairMat);
+    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.44, 16, 16), hairMat);
     hair.position.set(0, 1.55, -0.05);
     lunaMesh.add(hair);
 
-    // Twin Tails
-    const tailGeo = new THREE.SphereGeometry(0.2, 8, 8);
-    const leftTail = new THREE.Mesh(tailGeo, hairMat);
+    const leftTail = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 8), hairMat);
     leftTail.position.set(-0.5, 1.6, -0.2);
     lunaMesh.add(leftTail);
-    const rightTail = new THREE.Mesh(tailGeo, hairMat);
+    const rightTail = new THREE.Mesh(new THREE.SphereGeometry(0.2, 8, 8), hairMat);
     rightTail.position.set(0.5, 1.6, -0.2);
     lunaMesh.add(rightTail);
 
-    // Backpack (Detailed accessory from reference)
     const packMat = new THREE.MeshStandardMaterial({ color: 0x8b5a2b });
-    const packGeo = new THREE.BoxGeometry(0.6, 0.8, 0.4);
-    const pack = new THREE.Mesh(packGeo, packMat);
+    const pack = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.4), packMat);
     pack.position.set(0, 0.9, -0.4);
     lunaMesh.add(pack);
 
-    // Crystal Staff (Weapon)
     const staffMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
-    const staffGeo = new THREE.CylinderGeometry(0.04, 0.04, 2.2);
-    const staff = new THREE.Mesh(staffGeo, staffMat);
+    const staff = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.2), staffMat);
     staff.position.set(0.8, 1.0, 0.2);
     staff.rotation.z = -0.3;
     lunaMesh.add(staff);
 
-    // Blue Crystal tip
-    const crystalMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, emissive: 0x22d3ee, emissiveIntensity: 0.8 });
-    const crystalGeo = new THREE.OctahedronGeometry(0.2);
-    const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+    const crystalMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, emissive: 0x22d3ee, emissiveIntensity: 0.9 });
+    const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.2), crystalMat);
     crystal.position.set(1.0, 1.9, 0.2);
     lunaMesh.add(crystal);
 
@@ -139,42 +125,32 @@ function createLunaModel() {
 }
 
 function createBossModel() {
-    // Group representing LUNA, THE STARFALL ABYSS (32k polygon style corrupted floating model)
     bossMesh = new THREE.Group();
 
-    // Floating Dark Void Base
     const portalMat = new THREE.MeshStandardMaterial({ color: 0x7e22ce, emissive: 0x581c87, roughness: 0.2 });
-    const portalGeo = new THREE.RingGeometry(0.4, 0.9, 16);
-    const portal = new THREE.Mesh(portalGeo, portalMat);
+    const portal = new THREE.Mesh(new THREE.RingGeometry(0.4, 0.9, 16), portalMat);
     portal.rotation.x = -Math.PI / 2;
     portal.position.y = 0.05;
     bossMesh.add(portal);
 
-    // Corrupted Body & Dark Crystals
     const bodyMat = new THREE.MeshStandardMaterial({ color: 0x311042 });
-    const bodyGeo = new THREE.BoxGeometry(0.8, 1.0, 0.6);
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.6), bodyMat);
     body.position.y = 1.0;
     bossMesh.add(body);
 
-    // Floating Dark Crystals around shoulders
     const crystalMat = new THREE.MeshStandardMaterial({ color: 0xc084fc, emissive: 0x7e22ce, emissiveIntensity: 0.9 });
-    const crystalGeo = new THREE.ConeGeometry(0.2, 0.6, 4);
-    
-    const crys1 = new THREE.Mesh(crystalGeo, crystalMat);
+    const crys1 = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.6, 4), crystalMat);
     crys1.position.set(-0.6, 1.3, 0);
     crys1.rotation.z = 0.5;
     bossMesh.add(crys1);
 
-    const crys2 = new THREE.Mesh(crystalGeo, crystalMat);
+    const crys2 = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.6, 4), crystalMat);
     crys2.position.set(0.6, 1.3, 0);
     crys2.rotation.z = -0.5;
     bossMesh.add(crys2);
 
-    // Head (Corrupted glowing purple eyes)
     const headMat = new THREE.MeshStandardMaterial({ color: 0x451a03 });
-    const headGeo = new THREE.SphereGeometry(0.4, 16, 16);
-    const head = new THREE.Mesh(headGeo, headMat);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), headMat);
     head.position.y = 1.7;
     bossMesh.add(head);
 
@@ -183,34 +159,43 @@ function createBossModel() {
     hair.position.set(0, 1.75, -0.05);
     bossMesh.add(hair);
 
-    // Vortex Staff (Boss Weapon)
     const staffMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b });
     const staff = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.4), staffMat);
     staff.position.set(-0.9, 1.2, 0.2);
     staff.rotation.z = 0.3;
     bossMesh.add(staff);
 
-    // Dark Vortex glowing sphere at tip
     const vortexMat = new THREE.MeshStandardMaterial({ color: 0x581c87, emissive: 0x9333ea, emissiveIntensity: 1.0 });
     const vortex = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), vortexMat);
     vortex.position.set(-1.1, 2.1, 0.2);
     bossMesh.add(vortex);
 
-    bossMesh.position.set(4, 0.6, 0); // Floating slightly above ground
+    bossMesh.position.set(4, 0.6, 0);
     scene.add(bossMesh);
 }
 
 function onWindowResize() {
-    if(!container || !renderer) return;
-    camera.aspect = container.clientWidth / container.clientHeight;
+    if(!container || !renderer || !camera) return;
+    let w = container.clientWidth || window.innerWidth;
+    let h = container.clientHeight || 280;
+    camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(w, h);
 }
 
 function enterGameRoom() {
     document.getElementById('portal-screen').classList.add('hidden');
     document.getElementById('game-screen').classList.remove('hidden');
-    initBattle();
+    
+    // Use setTimeout to ensure container has rendered dimensions before Three.js initializes
+    setTimeout(() => {
+        if(!renderer) {
+            initThree();
+        } else {
+            onWindowResize();
+        }
+        initBattle();
+    }, 50);
 }
 
 function exitGameRoom() {
@@ -225,9 +210,6 @@ function initBattle() {
     turn = 'player';
     gameRunning = true;
     updateHUD();
-    if(!renderer) {
-        initThree();
-    }
     animate();
 }
 
@@ -265,7 +247,6 @@ function fireBullet() {
     if (turn !== 'player') return;
     turn = 'animating';
 
-    // Create 3D projectile mesh
     const projGeo = new THREE.SphereGeometry(0.2, 16, 16);
     const projMat = new THREE.MeshStandardMaterial({ color: 0x67e8f9, emissive: 0x00f0ff, emissiveIntensity: 1 });
     projectileMesh = new THREE.Mesh(projGeo, projMat);
@@ -289,7 +270,6 @@ function aiTurn() {
     setTimeout(() => {
         if (!gameRunning || ai.hp <= 0) return;
         
-        // Boss fires dark vortex projectile
         const projGeo = new THREE.SphereGeometry(0.25, 16, 16);
         const projMat = new THREE.MeshStandardMaterial({ color: 0xc084fc, emissive: 0x7e22ce, emissiveIntensity: 1 });
         projectileMesh = new THREE.Mesh(projGeo, projMat);
@@ -310,7 +290,7 @@ function aiTurn() {
 
 function updateGameLogic() {
     if (projectile) {
-        projectile.vy -= 0.015; // gravity
+        projectile.vy -= 0.015;
         projectile.x += projectile.vx;
         projectile.y += projectile.vy;
         
@@ -318,7 +298,6 @@ function updateGameLogic() {
             projectileMesh.position.set(projectile.x, projectile.y, projectile.z);
         }
 
-        // Check collision with platforms or targets
         let targetX = projectile.isPlayer ? 4 : -4;
         let dist = Math.abs(projectile.x - targetX);
 
@@ -356,7 +335,6 @@ function animate() {
     if (!gameRunning) return;
     requestAnimationFrame(animate);
     
-    // Subtle idle floating animation for Boss
     if(bossMesh) {
         bossMesh.position.y = 0.6 + Math.sin(Date.now() * 0.003) * 0.1;
     }
