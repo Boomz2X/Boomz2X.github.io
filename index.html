@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASHMOISS SHOP — Sweet & Streetwear</title>
-    <!-- Google Fonts: Mali (Thai Cute) & Fredoka (ENG Cute & Clean) -->
+    <title>CASHMOISS SHOP — Premium Streetwear & Lifestyle</title>
+    <!-- Google Fonts: Mali & Fredoka -->
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,7 +15,7 @@
             --bg-card: #221c2e;
             --text-primary: #fdfcff;
             --text-secondary: #b8b0c8;
-            --accent: #ff69b4; /* Hot Pink / Sweet Pink */
+            --accent: #ff69b4;
             --accent-glow: rgba(255, 105, 180, 0.3);
             --accent-hover: #ff479e;
             --border: #352c48;
@@ -78,13 +78,12 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.7rem 2rem;
+            padding: 0.8rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        /* โลโก้เป็นไอคอน Shop แทนรูปภาพตามคำขอ */
         .logo {
             display: flex;
             align-items: center;
@@ -94,6 +93,7 @@
             font-family: 'Fredoka', sans-serif;
             font-size: 1.25rem;
             font-weight: 700;
+            cursor: pointer;
         }
 
         .logo i {
@@ -224,12 +224,12 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 0.75rem;
-            color: var(--text-primary);
+            color: #ffffff;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .hero p {
-            color: var(--text-secondary);
+            color: #e2d9ee;
             font-size: 1rem;
             margin-bottom: 1.75rem;
             font-weight: 500;
@@ -415,7 +415,7 @@
             color: var(--accent);
         }
 
-        /* Modal Dialogs (Auth & Cart & Admin) */
+        /* Modal Dialogs */
         .modal {
             position: fixed;
             top: 0;
@@ -443,7 +443,7 @@
             border: 1px solid var(--border);
             border-radius: 24px;
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
             padding: 2.25rem;
             position: relative;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -644,37 +644,6 @@
             font-size: 0.85rem;
         }
 
-        /* Responsive Optimization (PC, TV, Mobile, iPad) */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0.8rem 1rem;
-            }
-            .nav-links {
-                display: none;
-            }
-            .hero {
-                padding: 2.2rem 1.2rem;
-            }
-            .hero h1 {
-                font-size: 2.1rem;
-            }
-            main {
-                padding: 1rem;
-            }
-        }
-
-        @media (min-width: 1920px) {
-            .nav-container, main {
-                max-width: 1800px;
-            }
-            .hero h1 {
-                font-size: 4rem;
-            }
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            }
-        }
-
         /* Toast Notification */
         #toast {
             position: fixed;
@@ -704,8 +673,7 @@
     <!-- Header -->
     <header>
         <div class="nav-container">
-            <!-- โลโก้เป็นไอคอน Shop แทนรูปภาพตามคำขอ -->
-            <a href="#" class="logo" onclick="switchView('shop')">
+            <a class="logo" onclick="switchView('shop')">
                 <i class="fa-solid fa-bag-shopping"></i> CASHMOISS<span>SHOP</span>
             </a>
             
@@ -714,23 +682,19 @@
                 <li><a onclick="filterProducts('all')" data-i18n="nav_products">สินค้าทั้งหมด</a></li>
                 <li><a onclick="filterProducts('hoodie')" data-i18n="nav_hoodies">ฮู้ดดี้ / เสื้อแจ็คเก็ต</a></li>
                 <li><a onclick="filterProducts('tshirt')" data-i18n="nav_tshirts">เสื้อยืดสตรีท</a></li>
-                <li><a onclick="toggleAdminModal()" style="color: var(--accent); font-weight: 700;"><i class="fa-solid fa-gauge"></i> <span data-i18n="nav_admin">แอดมิน แดชบอร์ด</span></a></li>
+                <li><a onclick="toggleAdminModal()" style="color: var(--accent); font-weight: 700;"><i class="fa-solid fa-gauge"></i> <span data-i18n="nav_admin">ระบบจัดการร้านค้า</span></a></li>
             </ul>
 
             <div class="nav-actions">
-                <!-- Language Switcher -->
                 <button class="btn-icon" onclick="toggleLanguage()" title="Switch Language">
                     <span id="langLabel" style="font-size: 0.75rem; font-weight: 700;">TH</span>
                 </button>
-                <!-- Dark/Light Theme Toggle -->
                 <button class="btn-icon" onclick="toggleTheme()" title="Toggle Theme">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
-                <!-- User Account -->
                 <button class="btn-icon" onclick="openAuthModal()" title="Account">
                     <i class="fa-solid fa-user"></i>
                 </button>
-                <!-- Cart -->
                 <button class="btn-icon" onclick="openCartDrawer()" title="Cart">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="badge-count" id="cartCount">0</span>
@@ -745,24 +709,24 @@
         <div id="shopView" class="shop-view">
             <section class="hero">
                 <div class="hero-content">
-                    <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;" data-i18n="hero_sub">✨ สตรีทแวร์ลุคหวานละมุน สไตล์ฮัน</span>
-                    <h1 style="color: #ffffff;" data-i18n="hero_title">CASHMOISS 2026 COLLECTION</h1>
-                    <p style="color: #e2d9ee;" data-i18n="hero_desc">ยกระดับสไตล์ของคุณด้วยดีไซน์สุดยูนีค ผสมผสานความน่ารักสดใสเข้ากับความเท่ฮิปฮอปพรีเมียมได้อย่างลงตัว</p>
-                    <button class="btn-primary" onclick="filterProducts('all')" data-i18n="hero_btn">ช้อปเลยตอนนี้</button>
+                    <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;" data-i18n="hero_sub">พรีเมียมสตรีทแวร์ คอลเลกชันพิเศษ 2026</span>
+                    <h1 data-i18n="hero_title">CASHMOISS COLLECTION</h1>
+                    <p data-i18n="hero_desc">ยกระดับสไตล์ของคุณด้วยดีไซน์อันเป็นเอกลักษณ์ ผสมผสานความประณีตและความพรีเมียมได้อย่างลงตัว</p>
+                    <button class="btn-primary" onclick="filterProducts('all')" data-i18n="hero_btn">เลือกชมสินค้า</button>
                 </div>
             </section>
 
             <div class="shop-controls">
                 <div class="categories">
-                    <div class="cat-chip active" onclick="filterProducts('all', this)" data-i18n="cat_all">ทั้งหมด 💕</div>
+                    <div class="cat-chip active" onclick="filterProducts('all', this)" data-i18n="cat_all">สินค้าทั้งหมด</div>
                     <div class="cat-chip" onclick="filterProducts('hoodie', this)" data-i18n="cat_hoodies">ฮู้ดดี้ / แจ็คเก็ต</div>
                     <div class="cat-chip" onclick="filterProducts('tshirt', this)" data-i18n="cat_tshirts">เสื้อยืด Oversize</div>
-                    <div class="cat-chip" onclick="filterProducts('accessory', this)" data-i18n="cat_acc">แอคเซสเซอรี</div>
+                    <div class="cat-chip" onclick="filterProducts('accessory', this)" data-i18n="cat_acc">เครื่องแต่งกายเสริม</div>
                 </div>
 
                 <div class="search-bar">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="ค้นหาสินค้าหวานๆ เท่ๆ..." oninput="searchProducts()">
+                    <input type="text" id="searchInput" placeholder="ค้นหาสินค้า..." oninput="searchProducts()">
                 </div>
             </div>
 
@@ -775,33 +739,33 @@
         <div id="adminView" class="admin-dashboard">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <div>
-                    <h2 style="font-size: 1.75rem; font-family: 'Fredoka', sans-serif;">ADMIN CONTROL PANEL 🛠️</h2>
-                    <p style="color: var(--text-secondary); font-size: 0.88rem;">จัดการสินค้า คำสั่งซื้อ และฐานข้อมูล Firebase / SQL แบบเรียลไทม์</p>
+                    <h2 style="font-size: 1.75rem; font-family: 'Fredoka', sans-serif;">ADMIN CONTROL PANEL</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem;">ระบบจัดการสินค้า คลังสินค้า และฐานข้อมูลหลังบ้าน</p>
                 </div>
                 <button class="btn-primary" onclick="switchView('shop')"><i class="fa-solid fa-store"></i> กลับหน้าร้านค้า</button>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-title">ยอดขายรวม (Total Revenue)</div>
+                    <div class="stat-title">ยอดขายรวม</div>
                     <div class="stat-value">฿184,500</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-title">คำสั่งซื้อใหม่ (Orders)</div>
-                    <div class="stat-value">46</div>
+                    <div class="stat-title">คำสั่งซื้อทั้งหมด</div>
+                    <div class="stat-value">46 รายการ</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-title">สมาชิกทั้งหมด (Users)</div>
-                    <div class="stat-value">1,580</div>
+                    <div class="stat-title">สมาชิกในระบบ</div>
+                    <div class="stat-value">1,580 บัญชี</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-title">สินค้าในระบบ (Products)</div>
+                    <div class="stat-title">สินค้าในคลัง</div>
                     <div class="stat-value" id="productCountStat">4</div>
                 </div>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-                <h3 style="font-size: 1.1rem;">จัดการรายการสินค้า (Products Database)</h3>
+                <h3 style="font-size: 1.1rem;">จัดการรายการสินค้า</h3>
                 <button class="btn-primary" onclick="openAddProductModal()"><i class="fa-solid fa-plus"></i> เพิ่มสินค้าใหม่</button>
             </div>
 
@@ -814,7 +778,7 @@
                             <th>หมวดหมู่</th>
                             <th>ราคา</th>
                             <th>สต็อก</th>
-                            <th>จัดการ</th>
+                            <th>การจัดการ</th>
                         </tr>
                     </thead>
                     <tbody id="adminProductTable">
@@ -827,67 +791,83 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 CASHMOISS SHOP. All Rights Reserved. ✨</p>
+        <p>© 2026 CASHMOISS SHOP. All Rights Reserved.</p>
     </footer>
 
-    
+    <!-- Product Quantity Selector Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content" style="max-width: 420px; text-align: center;">
+            <button class="modal-close" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="modalProdTitle" class="modal-title" style="font-size: 1.25rem; margin-bottom: 1rem;">เลือกจำนวนสินค้า</h3>
+            <img id="modalProdImg" src="" style="width: 150px; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; border: 1px solid var(--border);">
+            <div id="modalProdPrice" style="color: var(--accent); font-family: 'Fredoka', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem;">฿0</div>
+            
+            <div class="form-group" style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <label class="form-label" style="margin-bottom: 0;">จำนวน:</label>
+                <button class="btn-icon" onclick="adjustModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                <input type="number" id="modalProdQty" value="1" min="1" max="99" style="width: 60px; text-align: center; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary); border-radius: 8px; padding: 0.4rem; font-weight: 700;">
+                <button class="btn-icon" onclick="adjustModalQty(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            
+            <button class="btn-primary" style="width: 100%; padding: 0.75rem;" onclick="confirmAddToCart()">ยืนยันเพิ่มลงตะกร้า</button>
+        </div>
+    </div>
+
     <!-- Cart Drawer Modal -->
     <div class="modal" id="cartModal">
         <div class="modal-content" style="max-width: 500px;">
             <button class="modal-close" onclick="closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="modal-title">🛒 ตะกร้าสินค้าของคุณ</h2>
+            <h2 class="modal-title">ตะกร้าสินค้า</h2>
             <div id="cartItemsList" style="max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem;">
-                <!-- Cart items will be rendered here -->
+                <!-- Cart items rendered here -->
             </div>
             <div style="border-top: 1px solid var(--border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <span style="font-weight: 700; font-size: 1.1rem;">ยอดรวมทั้งหมด:</span>
+                <span style="font-weight: 700; font-size: 1.1rem;">ยอดรวมทั้งสิ้น:</span>
                 <span id="cartTotalPrice" style="font-family: 'Fredoka', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent);">฿0</span>
             </div>
-            <button class="btn-primary" style="width: 100%; padding: 0.9rem;" onclick="checkoutCart()">🛍️ ดำเนินการชำระเงิน (Checkout)</button>
+            <button class="btn-primary" style="width: 100%; padding: 0.9rem;" onclick="checkoutCart()">ดำเนินการชำระเงิน</button>
         </div>
     </div>
 
-    <!-- Auth Modal (Login / Register / Gmail API) -->
+    <!-- Auth Modal (Login / Register) -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
             
-            <!-- Login Form -->
             <div id="loginFormContainer">
-                <h2 class="modal-title" data-i18n="modal_login_title">เข้าสู่ระบบ ✨</h2>
+                <h2 class="modal-title">เข้าสู่ระบบ</h2>
                 <form onsubmit="handleLogin(event)">
                     <div class="form-group">
-                        <label class="form-label" data-i18n="lbl_username">Username หรือ Email</label>
+                        <label class="form-label">ชื่อผู้ใช้งาน หรือ อีเมล</label>
                         <input type="text" class="form-input" required placeholder="cashmoiss@sweet.com">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" data-i18n="lbl_password">รหัสผ่าน (Password)</label>
+                        <label class="form-label">รหัสผ่าน</label>
                         <input type="password" class="form-input" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;" data-i18n="btn_login">เข้าสู่ระบบ</button>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;">เข้าสู่ระบบ</button>
                 </form>
 
-                <div class="divider" data-i18n="divider_or">หรือเข้าสู่ระบบผ่าน</div>
+                <div class="divider">หรือเข้าสู่ระบบผ่าน</div>
 
                 <button class="btn-google" onclick="simulateGoogleLogin()">
-                    <i class="fa-brands fa-google" style="color: #ea4335;"></i> เข้าสู่ระบบด้วย Google API (Gmail)
+                    <i class="fa-brands fa-google" style="color: #ea4335;"></i> เข้าสู่ระบบด้วย Google Account
                 </button>
 
                 <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
-                    ยังไม่มีบัญชีผู้ใช้? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;" data-i18n="link_register">สมัครสมาชิก</a>
+                    ยังไม่มีบัญชีผู้ใช้งาน? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;">สมัครสมาชิก</a>
                 </p>
             </div>
 
-            <!-- Register Form (มีช่องใส่รหัสผ่าน และ ยืนยันรหัสผ่าน ตรวจสอบตรงกันก่อนกดสมัคร) -->
             <div id="registerFormContainer" style="display: none;">
-                <h2 class="modal-title" data-i18n="modal_reg_title">สมัครสมาชิกใหม่ 💕</h2>
+                <h2 class="modal-title">สมัครสมาชิก</h2>
                 <form onsubmit="handleRegister(event)">
                     <div class="form-group">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">ชื่อผู้ใช้งาน (Username)</label>
                         <input type="text" id="regUser" class="form-input" required placeholder="sweet_cashmoiss">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">อีเมล (Email)</label>
                         <input type="email" id="regEmail" class="form-input" required placeholder="mail@example.com">
                     </div>
                     <div class="form-group">
@@ -902,27 +882,68 @@
                 </form>
 
                 <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
-                    มีบัญชีอยู่แล้ว? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;" data-i18n="link_login">เข้าสู่ระบบ</a>
+                    มีบัญชีอยู่แล้ว? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;">เข้าสู่ระบบ</a>
                 </p>
             </div>
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast">แจ้งเตือนระบบสำเร็จ 💕</div>
+    <div id="toast">ดำเนินการสำเร็จ</div>
 
     <script>
-        // Initial Products Database
         let products = [
-            { id: 1, title: "CASHMOISS Pastel Cyberpunk Hoodie", category: "hoodie", price: 2390, stock: 25, badge: "BEST SELLER ⭐", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" },
-            { id: 2, title: "Sweet Rage Heavyweight Oversized Tee", category: "tshirt", price: 990, stock: 50, badge: "NEW ✨", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" },
-            { id: 3, title: "Lavender DRKSHDW Chrome Vest", category: "hoodie", price: 3490, stock: 12, badge: "LIMITED 🔥", img: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80" },
-            { id: 4, title: "CASHMOISS Heart Graffiti Cap & Mask", category: "accessory", price: 790, stock: 40, badge: "HOT 💖", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80" }
+            { id: 1, title: "CASHMOISS Pastel Cyberpunk Hoodie", category: "hoodie", price: 2390, stock: 25, badge: "BEST SELLER", img: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" },
+            { id: 2, title: "Sweet Rage Heavyweight Oversized Tee", category: "tshirt", price: 990, stock: 50, badge: "NEW", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" },
+            { id: 3, title: "Lavender DRKSHDW Chrome Vest", category: "hoodie", price: 3490, stock: 12, badge: "LIMITED", img: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80" },
+            { id: 4, title: "CASHMOISS Heart Graffiti Cap & Mask", category: "accessory", price: 790, stock: 40, badge: "HOT", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80" }
         ];
 
         let cartCount = 0;
         let cart = [];
+        let selectedProductForCart = null;
 
+        // Product Quantity Selector Modal handlers
+        function openProductModal(title, price, img) {
+            selectedProductForCart = { title, price, img };
+            document.getElementById('modalProdTitle').innerText = title;
+            document.getElementById('modalProdPrice').innerText = '฿' + price.toLocaleString();
+            document.getElementById('modalProdImg').src = img;
+            document.getElementById('modalProdQty').value = 1;
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            selectedProductForCart = null;
+        }
+
+        function adjustModalQty(amount) {
+            const qtyInput = document.getElementById('modalProdQty');
+            let current = parseInt(qtyInput.value) || 1;
+            current += amount;
+            if (current < 1) current = 1;
+            if (current > 99) current = 99;
+            qtyInput.value = current;
+        }
+
+        function confirmAddToCart() {
+            if (!selectedProductForCart) return;
+            const qty = parseInt(document.getElementById('modalProdQty').value) || 1;
+            const { title, price, img } = selectedProductForCart;
+
+            const existing = cart.find(item => item.title === title);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ title, price, img, qty });
+            }
+            updateCartCount();
+            closeProductModal();
+            showToast(`เพิ่ม "${title}" (${qty} ชิ้น) ลงตะกร้าเรียบร้อย`);
+        }
+
+        // Cart Drawer
         function openCartDrawer() {
             renderCartItems();
             document.getElementById('cartModal').classList.add('active');
@@ -930,17 +951,6 @@
 
         function closeCartDrawer() {
             document.getElementById('cartModal').classList.remove('active');
-        }
-
-        function addToCart(title, price, img) {
-            const existing = cart.find(item => item.title === title);
-            if (existing) {
-                existing.qty++;
-            } else {
-                cart.push({ title, price, img, qty: 1 });
-            }
-            updateCartCount();
-            showToast(`เพิ่ม "${title}" ลงตะกร้าแล้ว! 🛍️`);
         }
 
         function updateCartCount() {
@@ -954,7 +964,7 @@
             list.innerHTML = '';
 
             if (cart.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">ตะกร้าสินค้าของคุณยังว่างอยู่ 🥺</p>';
+                list.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">ตะกร้าสินค้าว่างเปล่า</p>';
                 totalEl.innerText = '฿0';
                 return;
             }
@@ -967,7 +977,7 @@
                         <img src="${item.img}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
                         <div style="flex: 1;">
                             <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem;">${item.title}</div>
-                            <div style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">฿${item.price.toLocaleString()} x ${item.qty}</div>
+                            <div style="color: var(--accent); font-weight: 700; font-size: 0.9rem;">฿${item.price.toLocaleString()} × ${item.qty}</div>
                         </div>
                         <button class="btn-icon" style="width: 32px; height: 32px;" onclick="removeFromCart(${index})" title="ลบ"><i class="fa-solid fa-trash" style="font-size: 0.75rem;"></i></button>
                     </div>
@@ -980,46 +990,35 @@
             cart.splice(index, 1);
             updateCartCount();
             renderCartItems();
-            showToast('ลบสินค้าออกจากตะกร้าแล้ว 🗑️');
+            showToast('ลบสินค้าออกจากตะกร้าแล้ว');
         }
 
         function checkoutCart() {
             if (cart.length === 0) {
-                alert('ไม่มีสินค้าในตะกร้า!');
+                alert('กรุณาเลือกสินค้าในตะกร้าก่อนดำเนินการชำระเงิน');
                 return;
             }
-            alert('🎉 สั่งซื้อสินค้าสำเร็จ! ขอบคุณที่สนับสนุน CASHMOISS SHOP');
+            alert('ทำรายการสั่งซื้อสำเร็จ ขอขอบคุณที่ใช้บริการ CASHMOISS SHOP');
             cart = [];
             updateCartCount();
             closeCartDrawer();
         }
 
-        // Translations (TH / ENG)
         const translations = {
             th: {
                 nav_home: "หน้าแรก",
                 nav_products: "สินค้าทั้งหมด",
                 nav_hoodies: "ฮู้ดดี้ / เสื้อแจ็คเก็ต",
                 nav_tshirts: "เสื้อยืดสตรีท",
-                nav_admin: "แอดมิน แดชบอร์ด",
-                hero_sub: "✨ สตรีทแวร์ลุคหวานละมุน สไตล์ฮัน",
-                hero_title: "CASHMOISS 2026 COLLECTION",
-                hero_desc: "ยกระดับสไตล์ของคุณด้วยดีไซน์สุดยูนีค ผสมผสานความน่ารักสดใสเข้ากับความเท่ฮิปฮอปพรีเมียมได้อย่างลงตัว",
-                hero_btn: "ช้อปเลยตอนนี้",
-                cat_all: "ทั้งหมด 💕",
+                nav_admin: "ระบบจัดการร้านค้า",
+                hero_sub: "พรีเมียมสตรีทแวร์ คอลเลกชันพิเศษ 2026",
+                hero_title: "CASHMOISS COLLECTION",
+                hero_desc: "ยกระดับสไตล์ของคุณด้วยดีไซน์อันเป็นเอกลักษณ์ ผสมผสานความประณีตและความพรีเมียมได้อย่างลงตัว",
+                hero_btn: "เลือกชมสินค้า",
+                cat_all: "สินค้าทั้งหมด",
                 cat_hoodies: "ฮู้ดดี้ / แจ็คเก็ต",
                 cat_tshirts: "เสื้อยืด Oversize",
-                cat_acc: "แอคเซสเซอรี",
-                modal_login_title: "เข้าสู่ระบบ ✨",
-                modal_reg_title: "สมัครสมาชิกใหม่ 💕",
-                lbl_username: "Username หรือ Email",
-                lbl_email: "Email",
-                lbl_password: "รหัสผ่าน (Password)",
-                btn_login: "เข้าสู่ระบบ",
-                btn_register: "สมัครสมาชิก",
-                divider_or: "หรือเข้าสู่ระบบผ่าน",
-                link_register: "สมัครสมาชิก",
-                link_login: "เข้าสู่ระบบ"
+                cat_acc: "เครื่องแต่งกายเสริม"
             },
             eng: {
                 nav_home: "Home",
@@ -1027,24 +1026,14 @@
                 nav_hoodies: "Hoodies / Jackets",
                 nav_tshirts: "Oversized Tees",
                 nav_admin: "Admin Dashboard",
-                hero_sub: "✨ Sweet & Edgy Streetwear by Han",
-                hero_title: "CASHMOISS 2026 COLLECTION",
-                hero_desc: "Elevate your style with unique designs blending cute pastel aesthetics with premium hip-hop edge.",
+                hero_sub: "Premium Streetwear 2026 Collection",
+                hero_title: "CASHMOISS COLLECTION",
+                hero_desc: "Elevate your style with distinctive designs blending exquisite craftsmanship and premium aesthetics.",
                 hero_btn: "Shop Now",
-                cat_all: "All 💕",
+                cat_all: "All Products",
                 cat_hoodies: "Hoodies / Jackets",
                 cat_tshirts: "Oversized Tees",
-                cat_acc: "Accessories",
-                modal_login_title: "Sign In ✨",
-                modal_reg_title: "Create Account 💕",
-                lbl_username: "Username or Email",
-                lbl_email: "Email",
-                lbl_password: "Password",
-                btn_login: "Sign In",
-                btn_register: "Register",
-                divider_or: "Or continue with",
-                link_register: "Register",
-                link_login: "Sign In"
+                cat_acc: "Accessories"
             }
         };
 
@@ -1061,25 +1050,23 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
-            showToast(currentLang === 'th' ? 'เปลี่ยนภาษาเป็น ภาษาไทย 🇹🇭' : 'Switched to English 🇬🇧');
+            showToast(currentLang === 'th' ? 'เปลี่ยนภาษาเป็นภาษาไทย' : 'Switched to English');
         }
 
-        // Theme Toggle (Dark / Light)
         function toggleTheme() {
             const html = document.documentElement;
             const themeIcon = document.getElementById('themeIcon');
             if (html.getAttribute('data-theme') === 'dark') {
                 html.setAttribute('data-theme', 'light');
                 themeIcon.className = "fa-solid fa-sun";
-                showToast('เปลี่ยนเป็นโหมดกลางวัน สบายตา ☀️');
+                showToast('เปลี่ยนเป็นโหมดสว่าง');
             } else {
                 html.setAttribute('data-theme', 'dark');
                 themeIcon.className = "fa-solid fa-moon";
-                showToast('เปลี่ยนเป็นโหมดกลางคืน เท่ๆ 🌙');
+                showToast('เปลี่ยนเป็นโหมดมืด');
             }
         }
 
-        // Render Products
         function renderProducts(filter = 'all', keyword = '') {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -1091,11 +1078,13 @@
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 3rem;">ไม่พบสินค้าที่คุณค้นหา 🥺</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 3rem;">ไม่พบสินค้าที่คุณค้นหา</p>';
                 return;
             }
 
             filtered.forEach(p => {
+                const safeTitle = p.title.replace(/'/g, "\\'");
+                const safeImg = p.img.replace(/'/g, "\\'");
                 grid.innerHTML += `
                     <div class="product-card">
                         <div class="product-badge">${p.badge}</div>
@@ -1106,7 +1095,7 @@
                             <div class="product-title">${p.title}</div>
                             <div class="product-footer">
                                 <div class="product-price">฿${p.price.toLocaleString()}</div>
-                                <button class="btn-primary" onclick="addToCart('${p.title}', ${p.price}, '${p.img}')"><i class="fa-solid fa-bag-shopping"></i> ซื้อ</button>
+                                <button class="btn-primary" onclick="openProductModal('${safeTitle}', ${p.price}, '${safeImg}')"><i class="fa-solid fa-bag-shopping"></i> สั่งซื้อ</button>
                             </div>
                         </div>
                     </div>
@@ -1128,22 +1117,15 @@
             renderProducts('all', keyword);
         }
 
-        function addToCart(title) {
-            cartCount++;
-            document.getElementById('cartCount').innerText = cartCount;
-            showToast(`เพิ่ม "${title}" ลงตะกร้าแล้ว! 🛍️`);
-        }
-
         function toggleWishlist(btn) {
             btn.classList.toggle('active');
             if (btn.classList.contains('active')) {
-                showToast('บันทึกสินค้าลงรายการโปรดแล้ว ❤️');
+                showToast('บันทึกสินค้าในรายการโปรด');
             } else {
-                showToast('นำออกจากรายการโปรดแล้ว');
+                showToast('นำออกจากรายการโปรด');
             }
         }
 
-        // View Switching (Shop vs Admin Dashboard)
         function switchView(view) {
             const shopView = document.getElementById('shopView');
             const adminView = document.getElementById('adminView');
@@ -1159,12 +1141,12 @@
         }
 
         function toggleAdminModal() {
-            const pass = prompt("กรุณากรอกรหัสผ่านผู้ดูแลระบบ (Admin Password):", "admin123");
+            const pass = prompt("กรุณากรอกรหัสผ่านผู้ดูแลระบบ:", "admin123");
             if (pass === "admin123" || pass === "cashmoiss") {
                 switchView('admin');
-                showToast('เข้าสู่ระบบ Admin สำเร็จ 🛠️');
+                showToast('เข้าสู่ระบบผู้ดูแลระบบสำเร็จ');
             } else if (pass !== null) {
-                alert("รหัสผ่านผู้ดูแลระบบไม่ถูกต้อง!");
+                alert("รหัสผ่านผู้ดูแลระบบไม่ถูกต้อง");
             }
         }
 
@@ -1182,6 +1164,7 @@
                         <td style="color: var(--accent); font-weight: 700;">฿${p.price.toLocaleString()}</td>
                         <td>${p.stock} ชิ้น</td>
                         <td>
+                            <button class="btn-icon" style="width: 30px; height: 30px; display: inline-flex; margin-right: 5px;" onclick="editProduct(${p.id})" title="แก้ไขสินค้า"><i class="fa-solid fa-pen" style="font-size: 0.75rem;"></i></button>
                             <button class="btn-icon" style="width: 30px; height: 30px; display: inline-flex;" onclick="deleteProduct(${p.id})" title="ลบสินค้า"><i class="fa-solid fa-trash" style="font-size: 0.75rem;"></i></button>
                         </td>
                     </tr>
@@ -1190,11 +1173,11 @@
         }
 
         function deleteProduct(id) {
-            if (confirm("คุณต้องการลบสินค้านี้ออกจากฐานข้อมูลใช่หรือไม่?")) {
+            if (confirm("ท่านต้องการลบสินค้านี้ออกจากระบบใช่หรือไม่?")) {
                 products = products.filter(p => p.id !== id);
                 renderAdminTable();
                 renderProducts();
-                showToast('ลบสินค้าสำเร็จ 🗑️');
+                showToast('ลบสินค้าสำเร็จ');
             }
         }
 
@@ -1203,6 +1186,7 @@
             if (!title) return;
             const price = parseInt(prompt("กรอกราคาสินค้า (บาท):", "1500"));
             const category = prompt("กรอกหมวดหมู่ (hoodie / tshirt / accessory):", "hoodie");
+            const img = prompt("กรอก URL รูปภาพสินค้า:", "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80");
             
             const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
             products.push({
@@ -1211,15 +1195,32 @@
                 category: category,
                 price: isNaN(price) ? 1290 : price,
                 stock: 30,
-                badge: "NEW ✨",
-                img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+                badge: "NEW",
+                img: img || "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
             });
             renderAdminTable();
             renderProducts();
-            showToast('เพิ่มสินค้าใหม่ลงฐานข้อมูลสำเร็จ 🎉');
+            showToast('เพิ่มสินค้าใหม่สำเร็จ');
         }
 
-        // Auth Modal & Google API Login
+        function editProduct(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+
+            const newTitle = prompt("แก้ไขชื่อสินค้า:", p.title);
+            if (newTitle === null) return;
+            const newPrice = parseInt(prompt("แก้ไขราคา (บาท):", p.price));
+            const newImg = prompt("แก้ไข URL รูปภาพสินค้า:", p.img);
+
+            if (newTitle) p.title = newTitle;
+            if (!isNaN(newPrice)) p.price = newPrice;
+            if (newImg) p.img = newImg;
+
+            renderAdminTable();
+            renderProducts();
+            showToast('แก้ไขข้อมูลสินค้าสำเร็จ');
+        }
+
         function openAuthModal() {
             document.getElementById('authModal').classList.add('active');
         }
@@ -1243,40 +1244,37 @@
         function handleLogin(e) {
             e.preventDefault();
             closeAuthModal();
-            showToast('เข้าสู่ระบบสำเร็จ ยินดีต้อนรับสู่ CASHMOISS! 💖');
+            showToast('เข้าสู่ระบบสำเร็จ');
         }
 
-        // ระบบตรวจสอบรหัสผ่านให้ตรงกันก่อนสมัครสมาชิกตามคำขอ
         function handleRegister(e) {
             e.preventDefault();
             const pass = document.getElementById('regPass').value;
             const confirmPass = document.getElementById('regConfirmPass').value;
 
             if (pass !== confirmPass) {
-                alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน! กรุณาตรวจสอบอีกครั้ง ❌");
+                alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง");
                 return;
             }
 
             closeAuthModal();
-            showToast('สมัครสมาชิกสำเร็จ บันทึกข้อมูลลง Firebase & SQL แล้ว! 🎉');
+            showToast('สมัครสมาชิกสำเร็จ บันทึกข้อมูลเข้าสู่ระบบเรียบร้อย');
         }
 
         function simulateGoogleLogin() {
             closeAuthModal();
-            showToast('เชื่อมต่อ Google OAuth API (Gmail Login) สำเร็จ! 🔑');
+            showToast('เชื่อมต่อระบบบัญชี Google สำเร็จ');
         }
 
-        // Toast Notification
         function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.add('show');
+            const tag = document.getElementById('toast');
+            tag.innerText = msg;
+            tag.classList.add('show');
             setTimeout(() => {
-                toast.classList.remove('show');
+                tag.classList.remove('show');
             }, 3000);
         }
 
-        // Init Load
         renderProducts();
     </script>
 </body>
