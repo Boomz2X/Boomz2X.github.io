@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>CASHMOISS SHOP — Wear Your Identity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="announcement" data-i18n="announcement">ส่งฟรีเมื่อช้อปครบ ฿2,000 · NEW DROP AVAILABLE NOW</div>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="CASHMOISS home"><span>CASH</span><b>MOISS</b><i>®</i><small>SHOP</small></a>
+    <nav class="main-nav">
+      <a href="#shop" data-i18n="navShop">สินค้า</a><a href="#collections" data-i18n="navCollection">คอลเลกชัน</a><a href="#about" data-i18n="navAbout">เกี่ยวกับเรา</a>
+    </nav>
+    <div class="header-actions">
+      <button class="text-btn" id="langBtn">TH / ENG</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
+      <button class="icon-btn account-btn" id="accountBtn" aria-label="Account">♙</button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart">♧ <em id="cartCount">0</em></button>
+      <button class="menu-btn" id="menuBtn">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CASHMOISS® — EST. 2026</p>
+        <h1>WEAR YOUR<br><span>IDENTITY.</span></h1>
+        <p class="hero-desc" data-i18n="heroDesc">เสื้อผ้าที่สะท้อนตัวตน ไม่จำเป็นต้องเหมือนใคร</p>
+        <a href="#shop" class="btn btn-light" data-i18n="shopNow">เลือกช้อปเลย <span>↗</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+        <div class="hero-tag">CM<br><small>DROP 001</small></div>
+        <div class="model-shape"><div class="shirt"><span>CASH<br>MOISS</span></div><div class="neck"></div></div>
+        <div class="hero-side-note">LIMITED<br>STREETWEAR<br>COLLECTION</div>
+        <div class="hero-index">01 / 03</div>
+      </div>
+      <div class="hero-bottom"><span>DESIGNED TO STAND OUT</span><span>SCROLL TO EXPLORE ↓</span></div>
+    </section>
+
+    <section class="ticker"><div>NEW SEASON · CASHMOISS · STREET CULTURE · NEW SEASON · CASHMOISS · STREET CULTURE ·&nbsp;</div></section>
+
+    <section class="shop-section section-wrap" id="shop">
+      <div class="section-heading"><div><p class="eyebrow">THE LATEST DROP</p><h2 data-i18n="shopTitle">เลือกสไตล์ของคุณ</h2></div><a href="#shop" class="under-link" data-i18n="viewAll">ดูสินค้าทั้งหมด ↗</a></div>
+      <div class="shop-toolbar">
+        <div class="filters" id="filters"><button class="filter active" data-filter="all" data-i18n="all">ทั้งหมด</button><button class="filter" data-filter="tops" data-i18n="tops">เสื้อ</button><button class="filter" data-filter="bottoms" data-i18n="bottoms">กางเกง</button><button class="filter" data-filter="accessories" data-i18n="accessories">Accessories</button></div>
+        <label class="sort-label"><span data-i18n="sort">เรียงตาม</span><select id="sortSelect"><option value="featured">Featured</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></label>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="manifesto" id="collections"><div class="manifesto-number">CM—001</div><p class="eyebrow">MORE THAN CLOTHING</p><h2>MAKE YOUR<br>OWN <i>RULES.</i></h2><p data-i18n="manifestoText">ความมั่นใจเริ่มต้นจากการเป็นตัวเอง<br>ค้นหาลุคที่ใช่ในแบบของคุณ</p><a href="#shop" class="btn btn-outline" data-i18n="explore">EXPLORE COLLECTION ↗</a></section>
+
+    <section class="about section-wrap" id="about"><div><p class="eyebrow">THE CASHMOISS MINDSET</p><h2>NOT HERE<br>TO FIT IN.</h2></div><p data-i18n="aboutText">CASHMOISS คือพื้นที่ของคนที่กล้าแสดงตัวตน ผ่านเสื้อผ้าที่เรียบ เท่ และใส่ได้จริงในทุกวัน เราเชื่อว่าสไตล์ที่ดีที่สุด คือสไตล์ที่เป็นคุณ</p></section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span>CASH</span><b>MOISS</b><i>®</i><small>SHOP</small></a><span>© 2026 CASHMOISS SHOP. ALL RIGHTS RESERVED.</span><div><a href="#about">INSTAGRAM</a><a href="#about">CONTACT</a></div></footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="cartDrawer"><div class="drawer-head"><h3 data-i18n="yourBag">YOUR BAG</h3><button class="close-btn" data-close>×</button></div><div id="cartItems" class="cart-items"><p class="empty" data-i18n="emptyCart">ยังไม่มีสินค้าในตะกร้า</p></div><div class="cart-footer"><div><span data-i18n="subtotal">ยอดรวม</span><b id="cartTotal">฿0</b></div><button class="btn btn-dark full" id="checkoutBtn" data-i18n="checkout">ดำเนินการสั่งซื้อ</button><small>Prototype checkout — ยังไม่ตัดเงินจริง</small></div></aside>
+
+  <div class="modal" id="authModal"><button class="close-btn modal-close" data-close>×</button><p class="eyebrow">WELCOME TO CASHMOISS</p><h2 id="authTitle">เข้าสู่ระบบ</h2><div class="auth-tabs"><button class="active" data-auth="login">LOGIN</button><button data-auth="register">CREATE ACCOUNT</button></div><form id="authForm"><label>Username / Email<input required id="username" placeholder="yourname@email.com"></label><label>Password<input required id="password" type="password" placeholder="••••••••" minlength="6"></label><button class="btn btn-dark full" type="submit" id="authSubmit">เข้าสู่ระบบ</button></form><div class="divider"><span>OR CONTINUE WITH</span></div><button class="google-btn" id="googleBtn"><b>G</b> Continue with Google</button><p class="demo-note">ระบบตัวอย่าง: บัญชีและ Google Login ยังไม่เชื่อม Firebase</p></div>
+
+  <div class="modal product-modal" id="productModal"><button class="close-btn modal-close" data-close>×</button><div id="productDetail"></div></div>
+
+  <section class="admin-panel" id="adminPanel"><div class="admin-top"><div><p class="eyebrow">CASHMOISS CONTROL CENTER</p><h2>ADMIN DASHBOARD</h2></div><button class="close-btn" id="closeAdmin">×</button></div><div class="admin-stats"><div><small>ORDERS</small><b>128</b><span>+12.8% this month</span></div><div><small>REVENUE</small><b>฿86,420</b><span>Demo analytics</span></div><div><small>PRODUCTS</small><b id="adminProductCount">6</b><span>Active listings</span></div><div><small>CUSTOMERS</small><b>342</b><span>Registered users</span></div></div><div class="admin-content"><div><h3>จัดการสินค้า</h3><p>เพิ่มสินค้าใหม่ในหน้า Preview (ข้อมูลจะหายเมื่อรีเฟรช)</p><form id="addProductForm" class="add-product"><input id="newName" placeholder="ชื่อสินค้า" required><input id="newPrice" type="number" placeholder="ราคา (บาท)" required><select id="newCategory"><option value="tops">เสื้อ</option><option value="bottoms">กางเกง</option><option value="accessories">Accessories</option></select><button class="btn btn-dark">เพิ่มสินค้า +</button></form></div><div><h3>สถานะระบบ</h3><p class="status"><i></i> Front-end demo running</p><p class="status warn"><i></i> Firebase / Payment / Google OAuth ยังไม่เชื่อมต่อ</p></div></div></section>
+
+  <button class="admin-fab" id="adminBtn" title="Demo admin">ADMIN ↗</button>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
