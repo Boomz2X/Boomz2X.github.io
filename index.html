@@ -84,22 +84,26 @@
             justify-content: space-between;
         }
 
+        /* โลโก้เป็นไอคอน Shop แทนรูปภาพตามคำขอ */
         .logo {
             display: flex;
             align-items: center;
+            gap: 10px;
             text-decoration: none;
+            color: var(--text-primary);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
-        .logo img {
-            height: 32px;
-            width: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 8px rgba(255,105,180,0.4));
-            transition: var(--transition);
+        .logo i {
+            color: var(--accent);
+            font-size: 1.35rem;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
         }
 
-        .logo img:hover {
-            transform: scale(1.05);
+        .logo span {
+            color: var(--accent);
         }
 
         .nav-links {
@@ -626,7 +630,7 @@
             border-bottom: none;
         }
 
-        /* FOOTER (ตามที่ขอคำว่า © 2026 CASHMOISS SHOP. All Rights Reserved. ✨) */
+        /* FOOTER */
         footer {
             background-color: var(--bg-secondary);
             border-top: 1px solid var(--border);
@@ -700,9 +704,9 @@
     <!-- Header -->
     <header>
         <div class="nav-container">
-            <!-- Logo รูปภาพสตรีทแวร์ (ขนาดเล็กพอดี ไม่ใหญ่เกินไป) -->
+            <!-- โลโก้เป็นไอคอน Shop แทนรูปภาพตามคำขอ -->
             <a href="#" class="logo" onclick="switchView('shop')">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="CASHMOISS LOGO" style="mix-blend-mode: luminosity; filter: contrast(200%); border-radius: 6px;">
+                <i class="fa-solid fa-bag-shopping"></i> CASHMOISS<span>SHOP</span>
             </a>
             
             <ul class="nav-links">
@@ -821,7 +825,7 @@
         </div>
     </main>
 
-    <!-- Footer (ท้ายเว็บตามที่ขอ: © 2026 CASHMOISS SHOP. All Rights Reserved. ✨) -->
+    <!-- Footer -->
     <footer>
         <p>© 2026 CASHMOISS SHOP. All Rights Reserved. ✨</p>
     </footer>
@@ -830,6 +834,8 @@
     <div class="modal" id="authModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Login Form -->
             <div id="loginFormContainer">
                 <h2 class="modal-title" data-i18n="modal_login_title">เข้าสู่ระบบ ✨</h2>
                 <form onsubmit="handleLogin(event)">
@@ -855,22 +861,27 @@
                 </p>
             </div>
 
+            <!-- Register Form (มีช่องใส่รหัสผ่าน และ ยืนยันรหัสผ่าน ตรวจสอบตรงกันก่อนกดสมัคร) -->
             <div id="registerFormContainer" style="display: none;">
                 <h2 class="modal-title" data-i18n="modal_reg_title">สมัครสมาชิกใหม่ 💕</h2>
                 <form onsubmit="handleRegister(event)">
                     <div class="form-group">
-                        <label class="form-label" data-i18n="lbl_username">Username</label>
-                        <input type="text" class="form-input" required placeholder="sweet_cashmoiss">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="regUser" class="form-input" required placeholder="sweet_cashmoiss">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" data-i18n="lbl_email">Email</label>
-                        <input type="email" class="form-input" required placeholder="mail@example.com">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="regEmail" class="form-input" required placeholder="mail@example.com">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" data-i18n="lbl_password">รหัสผ่าน (Password)</label>
-                        <input type="password" class="form-input" required placeholder="••••••••">
+                        <label class="form-label">รหัสผ่าน (Password)</label>
+                        <input type="password" id="regPass" class="form-input" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;" data-i18n="btn_register">สมัครสมาชิก</button>
+                    <div class="form-group">
+                        <label class="form-label">ยืนยันรหัสผ่าน (Confirm Password)</label>
+                        <input type="password" id="regConfirmPass" class="form-input" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;">สมัครสมาชิก</button>
                 </form>
 
                 <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
@@ -1146,8 +1157,17 @@
             showToast('เข้าสู่ระบบสำเร็จ ยินดีต้อนรับสู่ CASHMOISS! 💖');
         }
 
+        // ระบบตรวจสอบรหัสผ่านให้ตรงกันก่อนสมัครสมาชิกตามคำขอ
         function handleRegister(e) {
             e.preventDefault();
+            const pass = document.getElementById('regPass').value;
+            const confirmPass = document.getElementById('regConfirmPass').value;
+
+            if (pass !== confirmPass) {
+                alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน! กรุณาตรวจสอบอีกครั้ง ❌");
+                return;
+            }
+
             closeAuthModal();
             showToast('สมัครสมาชิกสำเร็จ บันทึกข้อมูลลง Firebase & SQL แล้ว! 🎉');
         }
