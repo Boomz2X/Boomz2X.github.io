@@ -41,6 +41,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Mali', 'Fredoka', sans-serif;
+            font-size: 0.95rem;
         }
 
         body {
@@ -77,7 +78,7 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.8rem 2rem;
+            padding: 0.7rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -90,7 +91,7 @@
         }
 
         .logo img {
-            height: 34px; /* ปรับขนาดโลโก้ให้พอดี ไม่ใหญ่เกินไปตามที่ต้องการ */
+            height: 32px;
             width: auto;
             object-fit: contain;
             filter: drop-shadow(0 0 8px rgba(255,105,180,0.4));
@@ -103,7 +104,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.75rem;
             list-style: none;
             align-items: center;
         }
@@ -114,7 +115,7 @@
             font-weight: 600;
             transition: var(--transition);
             cursor: pointer;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
         }
 
         .nav-links a:hover, .nav-links a.active {
@@ -125,15 +126,15 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
         .btn-icon {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -151,13 +152,13 @@
 
         .badge-count {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -4px;
+            right: -4px;
             background: var(--accent);
             color: white;
-            font-size: 0.7rem;
-            width: 20px;
-            height: 20px;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -169,13 +170,14 @@
             background: linear-gradient(135deg, #ff69b4, #b19cd9);
             color: white;
             border: none;
-            padding: 0.6rem 1.5rem;
+            padding: 0.5rem 1.25rem;
             border-radius: 30px;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px var(--accent-glow);
             font-family: 'Mali', sans-serif;
+            font-size: 0.85rem;
         }
 
         .btn-primary:hover {
@@ -196,7 +198,7 @@
         .hero {
             background: linear-gradient(135deg, rgba(255, 105, 180, 0.25) 0%, rgba(177, 156, 217, 0.2) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80') center/cover;
             border-radius: 24px;
-            padding: 4rem 3rem;
+            padding: 3.5rem 2.5rem;
             margin-bottom: 3rem;
             border: 1px solid var(--border);
             position: relative;
@@ -208,20 +210,24 @@
             max-width: 600px;
         }
 
+        .hero span {
+            font-size: 0.9rem;
+        }
+
         .hero h1 {
             font-family: 'Fredoka', sans-serif;
-            font-size: 3.2rem;
+            font-size: 2.6rem;
             font-weight: 700;
             line-height: 1.2;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             color: var(--text-primary);
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .hero p {
             color: var(--text-secondary);
-            font-size: 1.15rem;
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            margin-bottom: 1.75rem;
             font-weight: 500;
         }
 
@@ -246,12 +252,13 @@
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             color: var(--text-secondary);
-            padding: 0.6rem 1.25rem;
+            padding: 0.5rem 1.15rem;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
             white-space: nowrap;
             transition: var(--transition);
+            font-size: 0.85rem;
         }
 
         .cat-chip.active, .cat-chip:hover {
@@ -263,19 +270,19 @@
 
         .search-bar {
             position: relative;
-            min-width: 300px;
+            min-width: 280px;
         }
 
         .search-bar input {
             width: 100%;
             background: var(--bg-secondary);
             border: 1px solid var(--border);
-            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            padding: 0.65rem 1rem 0.65rem 2.6rem;
             border-radius: 30px;
             color: var(--text-primary);
             outline: none;
             transition: var(--transition);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .search-bar input:focus {
@@ -285,7 +292,7 @@
 
         .search-bar i {
             position: absolute;
-            left: 1.25rem;
+            left: 1.15rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
@@ -294,8 +301,8 @@
         /* Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.75rem;
         }
 
         .product-card {
@@ -317,13 +324,13 @@
 
         .product-badge {
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 12px;
+            left: 12px;
             background: var(--accent);
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            padding: 0.3rem 0.85rem;
+            padding: 0.25rem 0.75rem;
             border-radius: 20px;
             z-index: 2;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -331,14 +338,14 @@
 
         .wishlist-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 12px;
+            right: 12px;
             background: rgba(0,0,0,0.4);
             backdrop-filter: blur(5px);
             border: none;
             color: white;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -355,7 +362,7 @@
 
         .product-img {
             width: 100%;
-            height: 320px;
+            height: 300px;
             object-fit: cover;
             background: var(--bg-secondary);
             transition: var(--transition);
@@ -366,25 +373,25 @@
         }
 
         .product-info {
-            padding: 1.5rem;
+            padding: 1.25rem;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
         .product-category {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.2rem;
             font-weight: 700;
         }
 
         .product-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
             color: var(--text-primary);
         }
 
@@ -393,13 +400,13 @@
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            padding-top: 1rem;
+            padding-top: 0.85rem;
             border-top: 1px solid var(--border);
         }
 
         .product-price {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--accent);
         }
@@ -432,8 +439,8 @@
             border: 1px solid var(--border);
             border-radius: 24px;
             width: 100%;
-            max-width: 480px;
-            padding: 2.5rem;
+            max-width: 450px;
+            padding: 2.25rem;
             position: relative;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             transform: scale(0.95);
@@ -446,12 +453,12 @@
 
         .modal-close {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1.25rem;
+            right: 1.25rem;
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: var(--transition);
         }
@@ -462,22 +469,22 @@
 
         .modal-title {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             text-align: center;
             color: var(--text-primary);
         }
 
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.1rem;
         }
 
         .form-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 600;
         }
 
@@ -485,11 +492,11 @@
             width: 100%;
             background: var(--bg-primary);
             border: 1px solid var(--border);
-            padding: 0.85rem 1rem;
+            padding: 0.75rem 0.95rem;
             border-radius: 12px;
             color: var(--text-primary);
             outline: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: var(--transition);
         }
 
@@ -502,9 +509,9 @@
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 1.5rem 0;
+            margin: 1.25rem 0;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .divider::before, .divider::after {
@@ -526,15 +533,16 @@
             background: #ffffff;
             color: #2d2335;
             border: 1px solid var(--border);
-            padding: 0.8rem;
+            padding: 0.75rem;
             border-radius: 12px;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             transition: var(--transition);
+            font-size: 0.9rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
@@ -558,28 +566,28 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.25rem;
         }
 
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 20px;
+            padding: 1.25rem;
+            border-radius: 18px;
         }
 
         .stat-title {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.82rem;
+            margin-bottom: 0.4rem;
             font-weight: 600;
         }
 
         .stat-value {
             font-family: 'Fredoka', sans-serif;
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--accent);
         }
@@ -587,7 +595,7 @@
         .table-container {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
         }
 
@@ -598,7 +606,7 @@
         }
 
         th, td {
-            padding: 1rem 1.5rem;
+            padding: 0.9rem 1.25rem;
             border-bottom: 1px solid var(--border);
         }
 
@@ -606,31 +614,45 @@
             background: var(--bg-secondary);
             color: var(--text-secondary);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
         }
 
         td {
-            font-size: 0.95rem;
+            font-size: 0.88rem;
         }
 
         tr:last-child td {
             border-bottom: none;
         }
 
+        /* FOOTER (ตามที่ขอคำว่า © 2026 CASHMOISS SHOP. All Rights Reserved. ✨) */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
         /* Responsive Optimization (PC, TV, Mobile, iPad) */
         @media (max-width: 768px) {
             .nav-container {
-                padding: 1rem;
+                padding: 0.8rem 1rem;
             }
             .nav-links {
                 display: none;
             }
             .hero {
-                padding: 2.5rem 1.5rem;
+                padding: 2.2rem 1.2rem;
             }
             .hero h1 {
-                font-size: 2.3rem;
+                font-size: 2.1rem;
             }
             main {
                 padding: 1rem;
@@ -642,10 +664,10 @@
                 max-width: 1800px;
             }
             .hero h1 {
-                font-size: 4.5rem;
+                font-size: 4rem;
             }
             .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             }
         }
 
@@ -657,14 +679,15 @@
             background: var(--bg-card);
             border: 1px solid var(--accent);
             color: var(--text-primary);
-            padding: 1rem 1.75rem;
-            border-radius: 14px;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
             box-shadow: 0 10px 30px var(--accent-glow);
             z-index: 3000;
             transform: translateY(100px);
             opacity: 0;
             transition: var(--transition);
             font-weight: 600;
+            font-size: 0.88rem;
         }
         #toast.show {
             transform: translateY(0);
@@ -677,7 +700,7 @@
     <!-- Header -->
     <header>
         <div class="nav-container">
-            <!-- Logo รูปภาพสไตล์สตรีทแวร์ (ขนาดเล็กพอดี ไม่ใหญ่เกินไป) -->
+            <!-- Logo รูปภาพสตรีทแวร์ (ขนาดเล็กพอดี ไม่ใหญ่เกินไป) -->
             <a href="#" class="logo" onclick="switchView('shop')">
                 <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="CASHMOISS LOGO" style="mix-blend-mode: luminosity; filter: contrast(200%); border-radius: 6px;">
             </a>
@@ -693,7 +716,7 @@
             <div class="nav-actions">
                 <!-- Language Switcher -->
                 <button class="btn-icon" onclick="toggleLanguage()" title="Switch Language">
-                    <span id="langLabel" style="font-size: 0.8rem; font-weight: 700;">TH</span>
+                    <span id="langLabel" style="font-size: 0.75rem; font-weight: 700;">TH</span>
                 </button>
                 <!-- Dark/Light Theme Toggle -->
                 <button class="btn-icon" onclick="toggleTheme()" title="Toggle Theme">
@@ -748,8 +771,8 @@
         <div id="adminView" class="admin-dashboard">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <div>
-                    <h2 style="font-size: 2rem; font-family: 'Fredoka', sans-serif;">ADMIN CONTROL PANEL 🛠️</h2>
-                    <p style="color: var(--text-secondary);">จัดการสินค้า คำสั่งซื้อ และฐานข้อมูล Firebase / SQL แบบเรียลไทม์</p>
+                    <h2 style="font-size: 1.75rem; font-family: 'Fredoka', sans-serif;">ADMIN CONTROL PANEL 🛠️</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem;">จัดการสินค้า คำสั่งซื้อ และฐานข้อมูล Firebase / SQL แบบเรียลไทม์</p>
                 </div>
                 <button class="btn-primary" onclick="switchView('shop')"><i class="fa-solid fa-store"></i> กลับหน้าร้านค้า</button>
             </div>
@@ -773,8 +796,8 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3 style="font-size: 1.25rem;">จัดการรายการสินค้า (Products Database)</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <h3 style="font-size: 1.1rem;">จัดการรายการสินค้า (Products Database)</h3>
                 <button class="btn-primary" onclick="openAddProductModal()"><i class="fa-solid fa-plus"></i> เพิ่มสินค้าใหม่</button>
             </div>
 
@@ -798,6 +821,11 @@
         </div>
     </main>
 
+    <!-- Footer (ท้ายเว็บตามที่ขอ: © 2026 CASHMOISS SHOP. All Rights Reserved. ✨) -->
+    <footer>
+        <p>© 2026 CASHMOISS SHOP. All Rights Reserved. ✨</p>
+    </footer>
+
     <!-- Auth Modal (Login / Register / Gmail API) -->
     <div class="modal" id="authModal">
         <div class="modal-content">
@@ -813,7 +841,7 @@
                         <label class="form-label" data-i18n="lbl_password">รหัสผ่าน (Password)</label>
                         <input type="password" class="form-input" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" data-i18n="btn_login">เข้าสู่ระบบ</button>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;" data-i18n="btn_login">เข้าสู่ระบบ</button>
                 </form>
 
                 <div class="divider" data-i18n="divider_or">หรือเข้าสู่ระบบผ่าน</div>
@@ -822,7 +850,7 @@
                     <i class="fa-brands fa-google" style="color: #ea4335;"></i> เข้าสู่ระบบด้วย Google API (Gmail)
                 </button>
 
-                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
                     ยังไม่มีบัญชีผู้ใช้? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;" data-i18n="link_register">สมัครสมาชิก</a>
                 </p>
             </div>
@@ -842,10 +870,10 @@
                         <label class="form-label" data-i18n="lbl_password">รหัสผ่าน (Password)</label>
                         <input type="password" class="form-input" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" data-i18n="btn_register">สมัครสมาชิก</button>
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.75rem;" data-i18n="btn_register">สมัครสมาชิก</button>
                 </form>
 
-                <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+                <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
                     มีบัญชีอยู่แล้ว? <a onclick="toggleAuthMode()" style="color: var(--accent); cursor: pointer; font-weight: 700;" data-i18n="link_login">เข้าสู่ระบบ</a>
                 </p>
             </div>
@@ -1048,13 +1076,13 @@
             products.forEach(p => {
                 tbody.innerHTML += `
                     <tr>
-                        <td><img src="${p.img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 10px;"></td>
+                        <td><img src="${p.img}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 8px;"></td>
                         <td><strong>${p.title}</strong></td>
                         <td style="text-transform: uppercase;">${p.category}</td>
                         <td style="color: var(--accent); font-weight: 700;">฿${p.price.toLocaleString()}</td>
                         <td>${p.stock} ชิ้น</td>
                         <td>
-                            <button class="btn-icon" style="width: 34px; height: 34px; display: inline-flex;" onclick="deleteProduct(${p.id})" title="ลบสินค้า"><i class="fa-solid fa-trash" style="font-size: 0.8rem;"></i></button>
+                            <button class="btn-icon" style="width: 30px; height: 30px; display: inline-flex;" onclick="deleteProduct(${p.id})" title="ลบสินค้า"><i class="fa-solid fa-trash" style="font-size: 0.75rem;"></i></button>
                         </td>
                     </tr>
                 `;
